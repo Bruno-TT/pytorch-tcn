@@ -180,25 +180,25 @@ class TemporalPad1d(nn.Module):
             x = self.pad(x)
         return x
     
-   def reset_buffer(self, batch_size: int = 1) -> None:
-        """
-        Reset the streaming buffer to zeros.
-    
-        Parameters
-        ----------
-        batch_size : int, default 1
-            Number of parallel streams that will be processed in the next
-            call(s).  If this differs from the current buffer’s batch
-            dimension, the buffer is re‑allocated accordingly.
-        """
-        if self.buffer.size(0) != batch_size:
-            self.buffer = torch.zeros(
-                batch_size,
-                self.buffer.size(1),      # channels
-                self.pad_len,
-                device=self.buffer.device,
-                dtype=self.buffer.dtype,
-            )
-        else:
-            self.buffer.zero_()
-        return
+    def reset_buffer(self, batch_size: int = 1) -> None:
+            """
+            Reset the streaming buffer to zeros.
+        
+            Parameters
+            ----------
+            batch_size : int, default 1
+                Number of parallel streams that will be processed in the next
+                call(s).  If this differs from the current buffer’s batch
+                dimension, the buffer is re‑allocated accordingly.
+            """
+            if self.buffer.size(0) != batch_size:
+                self.buffer = torch.zeros(
+                    batch_size,
+                    self.buffer.size(1),      # channels
+                    self.pad_len,
+                    device=self.buffer.device,
+                    dtype=self.buffer.dtype,
+                )
+            else:
+                self.buffer.zero_()
+            return
